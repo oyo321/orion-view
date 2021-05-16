@@ -34,12 +34,12 @@ end
 function transAllPoints(points)
   local rv = {}
   -- Feed every point to coordTrans()
-  for i,v in ipairs(points) do
+  for i,v in pairs(points) do
     local tx, ty, tz = unpack(v)
     local nx, ny, nz = coordTrans(tx, ty, tz)
     -- Only append the point to the list, if coordTrans() has decided to render them 
     if nx and ny and nz then
-      table.insert(rv, {nx, ny, nz})
+      rv[i] = {nx, ny, nz}
     end
   end
   return rv
@@ -50,21 +50,25 @@ function get2Dcoords(input)
   local points = applyCameraPos(input)
   local trans  = transAllPoints(points)
   local coords = {}
+  local labels = {}
   local w, h   = love.graphics.getDimensions()
   -- transAllPoints() only return coords between -1 and 1
-  for i,v in ipairs(trans) do
+  for i,v in pairs(trans) do
     local x = (v[1]+1) * w/2
     local y = (v[2]+1) * h/2
+    -- Append the coords to the list of points to draw
     table.insert(coords, x)
     table.insert(coords, y)
+    -- There is also a list of coords for the labels
+    labels[i] = {x, y}
   end
-  return coords
+  return coords, labels
 end
 
 function applyCameraPos(input)
   local output, temp = {}, nil
   local co, cr = camOffset, camRotation
-  for i,_ in ipairs(input) do
+  for i,_ in pairs(input) do
     temp      = vectorAddition(input[i], co)
     output[i] = applyCameraRotation(temp, cr)
   end

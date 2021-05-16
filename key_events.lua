@@ -26,10 +26,11 @@ function turnCamKeys()
   end
 end
 
-function miscCamKeys()
-  local keyDown = love.keyboard.isDown
-  if keyDown("r") then
+function miscKeys(key)
+  if key == "r" then
     camOffset   = {0, 0, 0}
     camRotation = {0, 0, 0}
+  elseif key == "n" then
+    showStarLabels = not showStarLabels
   end
 end
