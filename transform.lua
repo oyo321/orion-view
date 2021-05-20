@@ -72,8 +72,6 @@ function applyCameraPos(input)
   for i,_ in pairs(input) do
     temp      = vectorAddition(input[i], co)
     output[i] = applyCameraRotation(temp, cr)
-    --temp      = applyCameraRotation(input[i], cr)
-    --output[i] = vectorAddition(temp, co)
   end
   return output
 end
