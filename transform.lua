@@ -65,12 +65,15 @@ function get2Dcoords(input)
   return coords, labels
 end
 
+
 function applyCameraPos(input)
   local output, temp = {}, nil
   local co, cr = camOffset, camRotation
   for i,_ in pairs(input) do
     temp      = vectorAddition(input[i], co)
     output[i] = applyCameraRotation(temp, cr)
+    --temp      = applyCameraRotation(input[i], cr)
+    --output[i] = vectorAddition(temp, co)
   end
   return output
 end
@@ -114,6 +117,43 @@ do
     local r  =  rad(d)
     local nx =  x*cos(r) - y*sin(r)
     local ny =  x*sin(r) + y*cos(r)
+    local nz =  z
+    return nx, ny, nz
+  end
+end
+
+
+function applyInverseCameraRotation(coord, rot)
+  local x, y, z = unpack(coord)
+  local x, y, z = invRotCamX(x, y, z, rot[1])
+  local x, y, z = invRotCamY(x, y, z, rot[2])
+  local x, y, z = invRotCamZ(x, y, z, rot[3])
+  return {x, y, z}
+end
+
+do
+  local rad, sin, cos = math.rad, math.sin, math.cos
+  
+  function invRotCamX(x, y, z, d)
+    local r  =  rad(d)
+    local nx =  x
+    local ny = -y*cos(r) + z*sin(r)
+    local nz = -y*sin(r) - z*cos(r)
+    return nx, ny, nz
+  end
+  
+  function invRotCamY(x, y, z, d)
+    local r  =  rad(d)
+    local nx = -x*cos(r) - z*sin(r)
+    local ny =  y
+    local nz =  x*sin(r) - z*cos(r)
+    return nx, ny, nz
+  end
+  
+  function invRotCamZ(x, y, z, d)
+    local r  =  rad(d)
+    local nx = -x*cos(r) + y*sin(r)
+    local ny = -x*sin(r) - y*cos(r)
     local nz =  z
     return nx, ny, nz
   end

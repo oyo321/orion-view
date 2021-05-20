@@ -6,9 +6,15 @@ function moveCamKeys()
     {"s", 3,  0.1}; {"w", 3, -0.1},
   }
   for _,k in ipairs(keys) do
+    --if keyDown(k[1]) then
+    --  camOffset[k[2]] = camOffset[k[2]] + k[3]
+    --end
     if keyDown(k[1]) then
-      camOffset[k[2]] = camOffset[k[2]] + k[3]
-    end
+      local raw_offset = {0, 0, 0}
+      raw_offset[ k[2] ] = k[3]
+      local offset = applyInverseCameraRotation(raw_offset, camRotation)
+      camOffset    = vectorAddition(camOffset, offset)
+    end --]]
   end
 end
 
