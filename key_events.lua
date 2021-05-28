@@ -18,9 +18,9 @@ end
 function turnCamKeys()
   local keyDown = love.keyboard.isDown
   local keys = {
-    {"k", 1,  5}; {"i", 1, -5},
+    --{"k", 1,  5}; {"i", 1, -5},
     {"j", 2,  5}; {"l", 2, -5},
-    {"u", 3,  5}; {"o", 3, -5},
+    --{"u", 3,  5}; {"o", 3, -5},
   }
   for _,k in ipairs(keys) do
     if keyDown(k[1]) then

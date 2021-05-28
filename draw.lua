@@ -22,7 +22,8 @@ function drawCamData()
   local rx, ry, rz = displayCamRotation(camRotation)
   local comma, degree = ", ", "°, "
   local pos_line = "Position: " ..ox..comma  ..oy..comma  ..oz
-  local rot_line = "Rotation: " ..rx..degree ..ry..degree ..rz .."°"
+  local rot_line = "Rotation: " ..ry.. "°"
+  --local rot_line = "Rotation: " ..rx..degree ..ry..degree ..rz .."°"
   love.graphics.print(pos_line, 10,10)
   love.graphics.print(rot_line, 10,30)
 end

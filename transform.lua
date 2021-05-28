@@ -137,7 +137,7 @@ do
     local nx =  x
     local ny = -y*cos(r) + z*sin(r)
     local nz = -y*sin(r) - z*cos(r)
-    return nx, ny, nz
+    return nx, -ny, nz
   end
   
   function invRotCamY(x, y, z, d)
